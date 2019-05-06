@@ -1,0 +1,711 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Mason Turpin - Homework 4}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k+kn}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k+kn}{as} \PY{n+nn}{pd}
+         
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib.pyplot} \PY{k+kn}{as} \PY{n+nn}{plt}
+         
+         \PY{k+kn}{from} \PY{n+nn}{sklearn.linear\PYZus{}model} \PY{k+kn}{import} \PY{n}{Lasso}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn.metrics} \PY{k+kn}{import} \PY{n}{mean\PYZus{}squared\PYZus{}error}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn.linear\PYZus{}model} \PY{k+kn}{import} \PY{n}{LassoCV}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k+kn}{import} \PY{n}{preprocessing}
+\end{Verbatim}
+
+
+    \section{Part A}\label{part-a}
+
+\subsection{There are 400 observations and 100 predictors. Lasso is
+preferable to OLS for this question because we can include many
+variables, get rid of those that are not necessary, and in doing so
+reduce the variance of our
+estimates.}\label{there-are-400-observations-and-100-predictors.-lasso-is-preferable-to-ols-for-this-question-because-we-can-include-many-variables-get-rid-of-those-that-are-not-necessary-and-in-doing-so-reduce-the-variance-of-our-estimates.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{data/credit.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{gendum} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{get\PYZus{}dummies}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Gender}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n}{studum} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{get\PYZus{}dummies}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Student}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{prefix} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Student}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{mardum} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{get\PYZus{}dummies}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Married}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{prefix} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Married}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{ethdum} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{get\PYZus{}dummies}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ethnicity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n}{df} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Unnamed: 0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Gender}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Student}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Married}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ethnicity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{df} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{gendum}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Male}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n}{df} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{studum}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Student\PYZus{}Yes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n}{df} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{mardum}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Married\PYZus{}Yes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n}{df} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{ethdum}\PY{p}{)}
+        \PY{n}{df} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Income}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Limit}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Rating}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cards}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Education}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Male}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Student\PYZus{}Yes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{African American}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Asian}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Balance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{column\PYZus{}names} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} 
+        \PY{n}{df\PYZus{}extended} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)} 
+        
+        \PY{k}{for} \PY{n}{column} \PY{o+ow}{in} \PY{n}{column\PYZus{}names}\PY{p}{:}
+            \PY{n}{interaction\PYZus{}name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Income*}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{\PYZsq{}}\PY{o}{\PYZpc{}}\PY{k}{column}
+            \PY{n}{df\PYZus{}extended}\PY{p}{[}\PY{n}{interaction\PYZus{}name}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}extended}\PY{p}{[}\PY{n}{column}\PY{p}{]}\PY{o}{*}\PY{n}{df\PYZus{}extended}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Income}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+            
+        \PY{k}{for} \PY{n}{column} \PY{o+ow}{in} \PY{n}{column\PYZus{}names}\PY{p}{:}
+            \PY{n}{interaction\PYZus{}name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Limit*}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{\PYZsq{}}\PY{o}{\PYZpc{}}\PY{k}{column}
+            \PY{n}{df\PYZus{}extended}\PY{p}{[}\PY{n}{interaction\PYZus{}name}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}extended}\PY{p}{[}\PY{n}{column}\PY{p}{]}\PY{o}{*}\PY{n}{df\PYZus{}extended}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Limit}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+            
+        \PY{k}{for} \PY{n}{column} \PY{o+ow}{in} \PY{n}{column\PYZus{}names}\PY{p}{:}
+            \PY{n}{interaction\PYZus{}name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Rating*}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{\PYZsq{}}\PY{o}{\PYZpc{}}\PY{k}{column}
+            \PY{n}{df\PYZus{}extended}\PY{p}{[}\PY{n}{interaction\PYZus{}name}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}extended}\PY{p}{[}\PY{n}{column}\PY{p}{]}\PY{o}{*}\PY{n}{df\PYZus{}extended}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Rating}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+            
+        \PY{k}{for} \PY{n}{column} \PY{o+ow}{in} \PY{n}{column\PYZus{}names}\PY{p}{:}
+            \PY{n}{interaction\PYZus{}name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cards*}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{\PYZsq{}}\PY{o}{\PYZpc{}}\PY{k}{column}
+            \PY{n}{df\PYZus{}extended}\PY{p}{[}\PY{n}{interaction\PYZus{}name}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}extended}\PY{p}{[}\PY{n}{column}\PY{p}{]}\PY{o}{*}\PY{n}{df\PYZus{}extended}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cards}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+            
+        \PY{k}{for} \PY{n}{column} \PY{o+ow}{in} \PY{n}{column\PYZus{}names}\PY{p}{:}
+            \PY{n}{interaction\PYZus{}name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age*}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{\PYZsq{}}\PY{o}{\PYZpc{}}\PY{k}{column}
+            \PY{n}{df\PYZus{}extended}\PY{p}{[}\PY{n}{interaction\PYZus{}name}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}extended}\PY{p}{[}\PY{n}{column}\PY{p}{]}\PY{o}{*}\PY{n}{df\PYZus{}extended}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+            
+        \PY{k}{for} \PY{n}{column} \PY{o+ow}{in} \PY{n}{column\PYZus{}names}\PY{p}{:}
+            \PY{n}{interaction\PYZus{}name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Education*}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{\PYZsq{}}\PY{o}{\PYZpc{}}\PY{k}{column}
+            \PY{n}{df\PYZus{}extended}\PY{p}{[}\PY{n}{interaction\PYZus{}name}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}extended}\PY{p}{[}\PY{n}{column}\PY{p}{]}\PY{o}{*}\PY{n}{df\PYZus{}extended}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Education}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+            
+        \PY{k}{for} \PY{n}{column} \PY{o+ow}{in} \PY{n}{column\PYZus{}names}\PY{p}{:}
+            \PY{n}{interaction\PYZus{}name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Male*}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{\PYZsq{}}\PY{o}{\PYZpc{}}\PY{k}{column}
+            \PY{n}{df\PYZus{}extended}\PY{p}{[}\PY{n}{interaction\PYZus{}name}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}extended}\PY{p}{[}\PY{n}{column}\PY{p}{]}\PY{o}{*}\PY{n}{df\PYZus{}extended}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Male}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+            
+        \PY{k}{for} \PY{n}{column} \PY{o+ow}{in} \PY{n}{column\PYZus{}names}\PY{p}{:}
+            \PY{n}{interaction\PYZus{}name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Student\PYZus{}Yes*}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{\PYZsq{}}\PY{o}{\PYZpc{}}\PY{k}{column}
+            \PY{n}{df\PYZus{}extended}\PY{p}{[}\PY{n}{interaction\PYZus{}name}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}extended}\PY{p}{[}\PY{n}{column}\PY{p}{]}\PY{o}{*}\PY{n}{df\PYZus{}extended}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Student\PYZus{}Yes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+            
+        \PY{k}{for} \PY{n}{column} \PY{o+ow}{in} \PY{n}{column\PYZus{}names}\PY{p}{:}
+            \PY{n}{interaction\PYZus{}name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{African American*}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{\PYZsq{}}\PY{o}{\PYZpc{}}\PY{k}{column}
+            \PY{n}{df\PYZus{}extended}\PY{p}{[}\PY{n}{interaction\PYZus{}name}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}extended}\PY{p}{[}\PY{n}{column}\PY{p}{]}\PY{o}{*}\PY{n}{df\PYZus{}extended}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{African American}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+            
+        \PY{k}{for} \PY{n}{column} \PY{o+ow}{in} \PY{n}{column\PYZus{}names}\PY{p}{:}
+            \PY{n}{interaction\PYZus{}name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Asian*}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{\PYZsq{}}\PY{o}{\PYZpc{}}\PY{k}{column}
+            \PY{n}{df\PYZus{}extended}\PY{p}{[}\PY{n}{interaction\PYZus{}name}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}extended}\PY{p}{[}\PY{n}{column}\PY{p}{]}\PY{o}{*}\PY{n}{df\PYZus{}extended}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Asian}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}69}]:} \PY{n}{df\PYZus{}scaled} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{preprocessing}\PY{o}{.}\PY{n}{scale}\PY{p}{(}\PY{n}{df\PYZus{}extended}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Balance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n}{df\PYZus{}scaled} \PY{o}{=} \PY{n}{df\PYZus{}scaled}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{df\PYZus{}extended}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Balance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \section{Part B}\label{part-b}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}54}]:} \PY{n}{lasso} \PY{o}{=} \PY{n}{Lasso}\PY{p}{(}\PY{n}{alpha}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{5}\PY{p}{)}
+         \PY{n}{X} \PY{o}{=} \PY{n}{df\PYZus{}scaled}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Balance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{Y} \PY{o}{=} \PY{n}{df\PYZus{}scaled}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Balance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{lasso}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{Y}\PY{p}{)}
+         \PY{k}{print}\PY{p}{(}\PY{n}{lasso}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{)}
+         \PY{k}{print}\PY{p}{(}\PY{n}{lasso}\PY{o}{.}\PY{n}{intercept\PYZus{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[-2.65741707e+01  1.06596046e+02  9.04886999e+01  1.72726730e+01
+ -0.00000000e+00  0.00000000e+00  0.00000000e+00  3.84457841e+01
+ -2.40055803e+00  8.41117530e-03 -3.53058604e+02 -5.18507177e+01
+ -2.99152010e+01 -0.00000000e+00 -5.51018369e+01  5.56919553e+00
+ -3.14055562e+01 -4.92333251e+00 -0.00000000e+00  6.01584494e+02
+  0.00000000e+00  3.26209537e+01 -0.00000000e+00  3.13445404e+01
+ -4.60029968e+00  1.19110692e+02  5.47647393e-01  0.00000000e+00
+  0.00000000e+00  0.00000000e+00  1.09318214e+00 -6.87358663e+00
+  5.65228690e+00 -0.00000000e+00  0.00000000e+00  0.00000000e+00
+  0.00000000e+00  0.00000000e+00  2.57207101e-01  3.05955619e+00
+ -0.00000000e+00 -0.00000000e+00 -4.32239704e+00  2.42436155e+00
+ -0.00000000e+00 -1.51089254e+00 -0.00000000e+00 -1.31959947e+01
+ -0.00000000e+00 -0.00000000e+00 -2.58641526e+00 -6.83744481e-01
+  1.65431553e+00 -0.00000000e+00  3.63946979e+00  0.00000000e+00
+  1.86571097e+00 -0.00000000e+00 -1.24803054e+00 -6.54068518e+00
+  6.49032626e+00  0.00000000e+00 -1.49589180e+00 -5.80579558e+00
+ -1.80113249e+00 -0.00000000e+00 -3.19487451e+00 -6.63748317e-01
+  4.51949031e+00  0.00000000e+00  4.63382526e-02  4.32916253e-02
+  7.14933028e-01  3.30341315e+00  0.00000000e+00  9.53226929e-03
+  9.43884455e-01  0.00000000e+00  2.45290073e-03  3.01779075e+00
+  1.01317301e-01  0.00000000e+00  1.88195551e-02  0.00000000e+00
+ -0.00000000e+00 -0.00000000e+00 -8.75476514e-02  8.74557619e-02
+  1.33635652e-02 -3.04487109e-01  0.00000000e+00  0.00000000e+00
+  0.00000000e+00 -1.14062508e+00  3.63944039e+00 -4.28959124e+00
+  9.56510688e-01  0.00000000e+00  0.00000000e+00  1.36579546e+00]
+520.015
+
+    \end{Verbatim}
+
+    \section{Part C}\label{part-c}
+
+\subsection{The training MSE is
+3450.3270422189776}\label{the-training-mse-is-3450.3270422189776}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}83}]:} \PY{n}{fitted\PYZus{}y} \PY{o}{=} \PY{n}{lasso}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+         \PY{k}{print} \PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{Y}\PY{p}{,} \PY{n}{fitted\PYZus{}y}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+3450.3270422189776
+
+    \end{Verbatim}
+
+    \section{Part D}\label{part-d}
+
+\subsection{The CV MSE is
+4502.67187929962}\label{the-cv-mse-is-4502.67187929962}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}56}]:} \PY{n}{CVn} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{:}
+             \PY{n}{start\PYZus{}index} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{400}\PY{o}{/}\PY{l+m+mi}{5}\PY{p}{)}\PY{o}{*}\PY{n}{i}
+             \PY{n}{end\PYZus{}index} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{400}\PY{o}{/}\PY{l+m+mi}{5}\PY{p}{)}\PY{o}{*}\PY{p}{(}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}
+             
+             \PY{n}{X\PYZus{}test} \PY{o}{=} \PY{n}{X}\PY{p}{[}\PY{n}{start\PYZus{}index}\PY{p}{:}\PY{n}{end\PYZus{}index}\PY{p}{]}
+             \PY{n}{Y\PYZus{}test} \PY{o}{=} \PY{n}{Y}\PY{p}{[}\PY{n}{start\PYZus{}index}\PY{p}{:}\PY{n}{end\PYZus{}index}\PY{p}{]}
+             
+             \PY{n}{X\PYZus{}train} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{n}{start\PYZus{}index}\PY{p}{]}\PY{p}{,}\PY{n}{X}\PY{p}{[}\PY{n}{end\PYZus{}index}\PY{p}{:}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+             \PY{n}{Y\PYZus{}train} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{(}\PY{n}{Y}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{n}{start\PYZus{}index}\PY{p}{]}\PY{p}{,}\PY{n}{Y}\PY{p}{[}\PY{n}{end\PYZus{}index}\PY{p}{:}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+             
+             \PY{n}{l} \PY{o}{=} \PY{n}{Lasso}\PY{p}{(}\PY{n}{alpha}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{5}\PY{p}{)}
+             \PY{n}{l}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,}\PY{n}{Y\PYZus{}train}\PY{p}{)}
+             \PY{n}{fitted\PYZus{}Y} \PY{o}{=} \PY{n}{l}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+             \PY{n}{mse} \PY{o}{=} \PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{Y\PYZus{}test}\PY{p}{,} \PY{n}{fitted\PYZus{}Y}\PY{p}{)}
+             \PY{n}{CVn}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{mse}\PY{p}{)}
+         
+             \PY{k}{print} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fold }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{, Coefficients: }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{, Intercept: }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{ , MSE: }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{ }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{i}\PY{p}{,} \PY{n}{l}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{,} 
+                                                                            \PY{n}{l}\PY{o}{.}\PY{n}{intercept\PYZus{}}\PY{p}{,} \PY{n}{mse}\PY{p}{)}
+         
+         
+         \PY{k}{print} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The CV MSE is }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n+nb}{sum}\PY{p}{(}\PY{n}{CVn}\PY{p}{)}\PY{o}{/}\PY{n+nb}{float}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{CVn}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Fold 0, Coefficients: [-4.97984385e+01  1.22603226e+02  8.46360972e+01  2.09071115e+01
+  0.00000000e+00  0.00000000e+00  4.15562171e+00  3.96262334e+01
+ -0.00000000e+00  2.55304117e-01 -3.52883885e+02 -1.95373780e+01
+ -3.44054184e+01 -0.00000000e+00 -4.27161233e+01  2.88475897e+00
+ -3.35862610e+01 -1.29188240e+00 -1.92410361e+00  5.81143754e+02
+  0.00000000e+00  3.87370205e+01 -0.00000000e+00  1.78406872e+01
+ -4.56689012e+00  1.24614712e+02  0.00000000e+00  0.00000000e+00
+  0.00000000e+00  0.00000000e+00  0.00000000e+00 -1.27881046e+01
+  5.37747569e+00 -0.00000000e+00  0.00000000e+00  0.00000000e+00
+  0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
+  0.00000000e+00 -0.00000000e+00 -8.22009663e+00  1.93078173e+00
+ -2.78814725e+00 -6.98951960e-01 -9.24764973e+00 -1.85806964e+00
+  0.00000000e+00 -0.00000000e+00 -0.00000000e+00 -4.33977105e+00
+  0.00000000e+00 -0.00000000e+00  5.57945926e+00  6.28120489e+00
+  0.00000000e+00 -0.00000000e+00 -0.00000000e+00 -7.55685794e+00
+  7.25028354e+00  0.00000000e+00 -0.00000000e+00 -4.66802914e+00
+ -0.00000000e+00 -0.00000000e+00 -2.34653534e+00 -3.73703775e+00
+  5.30376958e+00  3.47960734e+00 -0.00000000e+00 -0.00000000e+00
+  5.57991869e-01  1.23200248e+00  0.00000000e+00  0.00000000e+00
+  0.00000000e+00  0.00000000e+00 -0.00000000e+00  5.78513339e-01
+ -0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
+ -4.90558261e-01 -0.00000000e+00 -0.00000000e+00 -0.00000000e+00
+ -0.00000000e+00 -0.00000000e+00  0.00000000e+00  0.00000000e+00
+  0.00000000e+00 -2.64998602e+00  1.60947029e-01 -2.69664432e+00
+  1.37885927e+00  7.05934966e-02  0.00000000e+00  1.41405394e+00], Intercept: 520.7232115668832 , MSE: 3577.901342000211 
+
+Fold 1, Coefficients: [-0.00000000e+00  7.85483264e+01  9.35247266e+01  2.09273782e+01
+  0.00000000e+00 -0.00000000e+00  6.59080350e-02  2.46942907e+01
+ -0.00000000e+00  0.00000000e+00 -3.20988173e+02 -1.02659474e+02
+ -3.44312022e+01 -0.00000000e+00 -7.11085983e+01  6.61021943e+00
+ -3.15846613e+01  0.00000000e+00 -0.00000000e+00  6.13550407e+02
+  0.00000000e+00  3.43569021e+01 -0.00000000e+00  5.42889252e+01
+ -9.60657521e+00  1.20814102e+02  0.00000000e+00  8.80460902e+00
+  0.00000000e+00  0.00000000e+00  1.02639139e+00 -1.09238140e+01
+  0.00000000e+00 -0.00000000e+00  0.00000000e+00  0.00000000e+00
+  0.00000000e+00  0.00000000e+00  1.53392979e+00  0.00000000e+00
+ -0.00000000e+00 -0.00000000e+00 -6.25896779e+00  2.23154437e+00
+ -1.72554161e+00  0.00000000e+00 -0.00000000e+00 -5.52027329e+00
+ -0.00000000e+00  0.00000000e+00 -4.18447948e+00 -1.48364392e+00
+  0.00000000e+00  1.47754930e+00  2.25013769e+00  3.54918430e+00
+  0.00000000e+00 -0.00000000e+00 -2.83571324e+00 -8.94315305e+00
+  5.96000407e+00  4.38922587e+00 -2.40089059e+00 -1.09473956e+01
+ -1.08983558e-02 -0.00000000e+00 -3.84861321e+00 -2.49684654e+00
+  4.85442605e+00  6.11513214e+00  3.74802731e+00  0.00000000e+00
+  5.58215120e-01  6.48907414e+00  0.00000000e+00  5.69309030e-02
+  0.00000000e+00  1.06976159e+00  3.85614669e-02  8.83504567e+00
+ -1.61986790e+00  0.00000000e+00  2.57344243e-02  0.00000000e+00
+ -8.59517080e-01  2.10012715e+00 -6.84277842e+00  0.00000000e+00
+ -1.57148566e-01 -0.00000000e+00  0.00000000e+00  1.60623627e-02
+  0.00000000e+00  0.00000000e+00  7.22390631e-01 -3.85981517e+00
+  4.69957662e-01  0.00000000e+00  0.00000000e+00  0.00000000e+00], Intercept: 520.8243833657504 , MSE: 5283.110002842829 
+
+Fold 2, Coefficients: [-3.61856481e+01  1.25131953e+02  7.90292163e+01  2.20944918e+01
+  0.00000000e+00 -0.00000000e+00  0.00000000e+00  3.06492784e+01
+ -0.00000000e+00  2.81115108e+00 -3.75213638e+02 -3.43418421e+01
+ -3.41206031e+01 -1.73940359e+01 -2.39016597e+01  1.14548691e+01
+ -2.88137233e+01 -1.13137583e+01 -0.00000000e+00  6.18058583e+02
+  0.00000000e+00  2.68733935e+01 -0.00000000e+00  7.93730408e-01
+ -1.33935043e+00  1.32831610e+02  0.00000000e+00  0.00000000e+00
+  0.00000000e+00  0.00000000e+00  0.00000000e+00 -0.00000000e+00
+  8.69859438e+00 -0.00000000e+00  0.00000000e+00  4.18631705e+00
+  3.96235045e+00  0.00000000e+00  0.00000000e+00  2.03798441e+00
+  0.00000000e+00  0.00000000e+00 -2.98462507e+00  1.48500895e+00
+  1.14936525e+00 -4.39938368e+00 -6.90773944e+00 -9.30996279e+00
+  0.00000000e+00  0.00000000e+00 -0.00000000e+00 -6.58876275e+00
+  0.00000000e+00 -3.38061350e+00  2.51547881e+00  0.00000000e+00
+  2.57291498e+00  0.00000000e+00 -0.00000000e+00 -2.43425514e+00
+  3.52341143e+00  0.00000000e+00 -2.22376636e+00 -5.61322371e+00
+ -5.71768894e+00 -0.00000000e+00 -3.78332851e-01 -0.00000000e+00
+  4.61936282e+00  0.00000000e+00 -0.00000000e+00  1.59901852e-01
+  4.69119151e-01  1.81875829e-01  0.00000000e+00  1.04653459e+00
+  0.00000000e+00  0.00000000e+00 -0.00000000e+00  2.43436547e+00
+  5.84793499e-01  3.88957881e+00  0.00000000e+00  2.22083433e+00
+  1.50414370e+00 -2.54781200e+00 -2.04516070e+00  3.31516171e-01
+  4.01045139e-02 -0.00000000e+00  0.00000000e+00  0.00000000e+00
+  0.00000000e+00 -2.85054696e+00  5.14690572e+00 -5.65898196e+00
+  1.04520929e+00  2.92204265e-01  0.00000000e+00  1.01345456e-01], Intercept: 520.9138056011333 , MSE: 4357.365387572262 
+
+Fold 3, Coefficients: [-1.77468285e+01  1.31102594e+02  6.96919669e+01  9.42830531e+00
+ -0.00000000e+00 -0.00000000e+00  0.00000000e+00  4.32551850e+01
+ -4.65042762e+00  0.00000000e+00 -3.53473704e+02 -6.51024379e+01
+ -2.55696398e+01  0.00000000e+00 -6.00879872e+01  9.29909647e+00
+ -3.03433249e+01 -6.93210977e+00 -3.98512859e+00  6.02926301e+02
+  0.00000000e+00  6.21708639e+00 -0.00000000e+00  4.10550351e+01
+ -1.57432436e+01  9.96692628e+01  2.00744131e+00  0.00000000e+00
+  0.00000000e+00  0.00000000e+00  2.49633210e+01 -7.74957127e+00
+  0.00000000e+00 -0.00000000e+00  0.00000000e+00  0.00000000e+00
+  0.00000000e+00  0.00000000e+00  6.94620709e+00  3.85464565e+00
+ -0.00000000e+00 -0.00000000e+00 -2.39209064e+00  2.57060920e+00
+  0.00000000e+00 -7.15955704e-01 -0.00000000e+00 -1.05524697e+01
+ -0.00000000e+00 -2.44695046e+00 -1.41517934e+00 -0.00000000e+00
+  1.02941559e+00 -0.00000000e+00  7.12354840e+00  0.00000000e+00
+  0.00000000e+00 -0.00000000e+00 -1.12552494e-01 -5.81599930e+00
+  4.14788139e+00  4.65193198e+00 -0.00000000e+00 -6.72053084e+00
+ -1.52347022e+00 -0.00000000e+00 -1.76936932e+00 -0.00000000e+00
+  2.83561456e+00  7.12820317e+00 -0.00000000e+00  1.69772828e+00
+  6.14153395e-02  9.21646350e+00  0.00000000e+00  1.26476059e-01
+  1.01158171e+00  0.00000000e+00 -0.00000000e+00  7.13354133e+00
+ -0.00000000e+00 -1.89954262e+00  6.80098279e+00  0.00000000e+00
+  0.00000000e+00 -0.00000000e+00 -0.00000000e+00  2.51620934e-01
+ -0.00000000e+00 -6.59650387e+00  0.00000000e+00  0.00000000e+00
+  0.00000000e+00 -1.56491637e-01  5.57659958e+00 -5.65337355e+00
+  1.87666254e+00 -1.88949154e-01  0.00000000e+00  0.00000000e+00], Intercept: 520.0001536687329 , MSE: 4198.745034875885 
+
+Fold 4, Coefficients: [-3.03111513e+01  5.63325948e+01  1.06306451e+02  1.46569467e+01
+ -1.19274569e+01 -0.00000000e+00  0.00000000e+00  2.28323509e+01
+ -0.00000000e+00  0.00000000e+00 -3.96948559e+02 -3.68629630e+00
+ -2.00404004e+01  0.00000000e+00 -6.29919116e+01  2.93365250e+00
+ -2.99022636e+01 -2.46446054e+01 -1.93691736e+00  6.19537780e+02
+  0.00000000e+00  2.66738031e+01 -0.00000000e+00  4.52561213e+01
+ -0.00000000e+00  1.10493877e+02  7.57675388e+00 -0.00000000e+00
+  0.00000000e+00  0.00000000e+00  4.34080672e-01 -0.00000000e+00
+  4.76769466e+00 -0.00000000e+00  0.00000000e+00  0.00000000e+00
+ -0.00000000e+00  0.00000000e+00  7.93472796e-01  7.72615163e+00
+ -0.00000000e+00 -0.00000000e+00 -6.68202231e+00  1.00288690e+01
+ -0.00000000e+00 -8.94735988e-01 -0.00000000e+00 -0.00000000e+00
+ -0.00000000e+00  0.00000000e+00 -0.00000000e+00 -0.00000000e+00
+  1.36454671e+01 -0.00000000e+00  4.60730153e-01  1.60869257e+00
+  0.00000000e+00 -0.00000000e+00 -0.00000000e+00 -1.33767034e+01
+  4.45400002e+00  0.00000000e+00 -0.00000000e+00 -6.03951398e+00
+ -0.00000000e+00 -0.00000000e+00 -2.17448559e+00 -0.00000000e+00
+  1.99075104e+00  0.00000000e+00  3.05970668e+00  2.81954938e-01
+  2.42236808e-01  9.19744329e-03  0.00000000e+00  0.00000000e+00
+  3.71022032e+00  0.00000000e+00  2.82099820e-01  3.26043327e-01
+  6.86698273e+00  7.93190946e-01  0.00000000e+00  0.00000000e+00
+ -0.00000000e+00 -0.00000000e+00 -0.00000000e+00  7.81784942e-01
+  7.90493184e-01 -0.00000000e+00  0.00000000e+00 -0.00000000e+00
+ -0.00000000e+00 -6.17519416e+00  1.15935175e+00 -9.27025769e-03
+  1.85593475e+00  1.70008575e+00  0.00000000e+00  6.89397362e+00], Intercept: 517.6144340063381 , MSE: 5096.237629206911 
+
+The CV MSE is 4502.67187929962
+
+    \end{Verbatim}
+
+    \section{Part E}\label{part-e}
+
+\subsection{The CV MSE is much higher than the training MSE. This is due
+to the training MSE being calculated over observations that are in the
+model, whereas the CV MSE is calculated using observations that were not
+used to create the
+model.}\label{the-cv-mse-is-much-higher-than-the-training-mse.-this-is-due-to-the-training-mse-being-calculated-over-observations-that-are-in-the-model-whereas-the-cv-mse-is-calculated-using-observations-that-were-not-used-to-create-the-model.}
+
+\section{Part F}\label{part-f}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}87}]:} \PY{n}{grid} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{101}\PY{p}{)}\PY{p}{:}
+             \PY{n}{grid}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n+nb}{float}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{100}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}88}]:} \PY{n}{lamb\PYZus{}mse} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         
+         \PY{k}{for} \PY{n}{lamb} \PY{o+ow}{in} \PY{n}{grid}\PY{p}{:}
+             \PY{n}{fold\PYZus{}mse} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{start\PYZus{}index} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{400}\PY{o}{/}\PY{l+m+mi}{5}\PY{p}{)}\PY{o}{*}\PY{n}{i}
+                 \PY{n}{end\PYZus{}index} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{400}\PY{o}{/}\PY{l+m+mi}{5}\PY{p}{)}\PY{o}{*}\PY{p}{(}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}
+             
+                 \PY{n}{X\PYZus{}test} \PY{o}{=} \PY{n}{X}\PY{p}{[}\PY{n}{start\PYZus{}index}\PY{p}{:}\PY{n}{end\PYZus{}index}\PY{p}{]}
+                 \PY{n}{Y\PYZus{}test} \PY{o}{=} \PY{n}{Y}\PY{p}{[}\PY{n}{start\PYZus{}index}\PY{p}{:}\PY{n}{end\PYZus{}index}\PY{p}{]}
+             
+                 \PY{n}{X\PYZus{}train} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{n}{start\PYZus{}index}\PY{p}{]}\PY{p}{,}\PY{n}{X}\PY{p}{[}\PY{n}{end\PYZus{}index}\PY{p}{:}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{Y\PYZus{}train} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{(}\PY{n}{Y}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{n}{start\PYZus{}index}\PY{p}{]}\PY{p}{,}\PY{n}{Y}\PY{p}{[}\PY{n}{end\PYZus{}index}\PY{p}{:}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                 
+                 \PY{n}{l} \PY{o}{=} \PY{n}{Lasso}\PY{p}{(}\PY{n}{alpha}\PY{o}{=}\PY{n}{lamb}\PY{p}{)}
+                 \PY{n}{l}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{Y\PYZus{}train}\PY{p}{)}
+                 \PY{n}{fitted\PYZus{}Y} \PY{o}{=} \PY{n}{l}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+                 \PY{n}{fold\PYZus{}mse}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{Y\PYZus{}test}\PY{p}{,}\PY{n}{fitted\PYZus{}Y}\PY{p}{)}\PY{p}{)}
+             \PY{n}{lamb\PYZus{}mse}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n+nb}{sum}\PY{p}{(}\PY{n}{fold\PYZus{}mse}\PY{p}{)}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{fold\PYZus{}mse}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{lambda\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Grid}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{grid}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mse}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{lamb\PYZus{}mse}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n}{lambda\PYZus{}df}
+         \PY{k}{print} \PY{n}{lambda\PYZus{}df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{lambda\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mse}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{idxmin}\PY{p}{(}\PY{p}{)}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Grid       0.480000
+mse     4501.712269
+Name: 47, dtype: float64
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}89}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{lambda\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Grid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{lambda\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mse}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}89}]:} [<matplotlib.lines.Line2D at 0xf1ba2b0>]
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{The optimal value of lambda, given the grid, is
+.48.}\label{the-optimal-value-of-lambda-given-the-grid-is-.48.}
+
+\section{Part G}\label{part-g}
+
+\subsection{Below is the optimal
+estimation.}\label{below-is-the-optimal-estimation.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}82}]:} \PY{n}{lassoCorrect} \PY{o}{=} \PY{n}{Lasso}\PY{p}{(}\PY{n}{alpha}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{48}\PY{p}{)}
+         \PY{n}{lassoCorrect}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{Y}\PY{p}{)}
+         \PY{k}{print}\PY{p}{(}\PY{n}{lassoCorrect}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{)}
+         \PY{k}{print}\PY{p}{(}\PY{n}{lassoCorrect}\PY{o}{.}\PY{n}{intercept\PYZus{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[-2.48502511e+01  1.06034809e+02  8.99887047e+01  1.74074866e+01
+ -0.00000000e+00  0.00000000e+00  0.00000000e+00  3.81322971e+01
+ -2.50994679e+00  4.93524256e-01 -3.55287998e+02 -5.14585288e+01
+ -3.02104717e+01 -0.00000000e+00 -5.60408001e+01  6.33664818e+00
+ -3.16431387e+01 -5.40604132e+00 -3.58265325e-02  6.03627632e+02
+  0.00000000e+00  3.26568064e+01 -0.00000000e+00  3.11985368e+01
+ -5.29133827e+00  1.19313457e+02  7.78034667e-01  0.00000000e+00
+  0.00000000e+00  0.00000000e+00  1.07361761e+00 -7.51095625e+00
+  6.28984818e+00 -0.00000000e+00  0.00000000e+00  0.00000000e+00
+  0.00000000e+00  0.00000000e+00  1.62668463e-01  3.27837510e+00
+ -0.00000000e+00 -0.00000000e+00 -4.53590695e+00  2.42123010e+00
+ -0.00000000e+00 -1.50101071e+00 -0.00000000e+00 -1.30617506e+01
+ -0.00000000e+00 -0.00000000e+00 -2.17037144e+00 -5.39404842e-01
+  1.70308784e+00 -0.00000000e+00  3.19546849e+00  0.00000000e+00
+  2.13375808e+00 -0.00000000e+00 -1.30078726e+00 -6.81821672e+00
+  6.50659657e+00  0.00000000e+00 -1.36719501e+00 -6.49066044e+00
+ -1.99444580e+00 -0.00000000e+00 -3.14174286e+00 -1.14274356e+00
+  5.04573675e+00  8.71284152e-02  3.98252590e-02  1.71812367e-01
+  7.15355083e-01  3.44787617e+00  0.00000000e+00  2.32014164e-02
+  1.04247347e+00  0.00000000e+00  2.35660948e-03  3.11079783e+00
+  9.05549337e-02  0.00000000e+00  4.63221400e-01  0.00000000e+00
+ -0.00000000e+00 -0.00000000e+00 -5.46476274e-01  5.59788362e-02
+  1.24169939e-02 -1.69920230e-01  0.00000000e+00  0.00000000e+00
+  0.00000000e+00 -1.44901359e+00  4.20997853e+00 -4.56232664e+00
+  9.94990838e-01  0.00000000e+00  0.00000000e+00  1.96752393e+00]
+520.015
+
+    \end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
